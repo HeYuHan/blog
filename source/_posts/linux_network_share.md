@@ -1,9 +1,10 @@
 ---
-title: linux 双网卡NAT共享外网给局域网
+title: Linux 双网卡NAT共享外网给局域网
 #分类
 categories: "Linux"
 tags:
-    -网络配置
+    - 网络配置
+    - 网络共享
 ---
 eth0(外网):115.159.21.23
 eth1(内网):192.168.1.1
