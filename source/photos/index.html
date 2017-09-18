@@ -1,0 +1,150 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+    <style>
+        html,body{
+            widows: 100%;
+            height: 100%;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #masonry{
+            margin: 0 auto;  
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdn.bootcss.com/masonry/4.2.0/masonry.pkgd.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        
+        function ItemDetail(){
+            var modal = $('#myModal');
+            modal.remove();
+            modal.appendTo(document.body);
+            modal.click(function(){
+                modal.hide();
+            });
+            this.modal = modal;  
+            //modal.hide();       
+        }
+        ItemDetail.prototype.Show=function(item){
+            //this.modal.show();
+        }
+        ItemDetail.prototype.Close=function(item){
+
+        }
+
+
+        function Item(title,src,desc,modalBox,info) {
+            this.container = $('<div class="photo item" data-toggle="modal" data-target="#myModal"></div>');
+            this.title = $('<h1>'+title+'</h1>');
+            this.img = $('<img src="'+src+'"></img>');
+            this.desc = $('<p>'+desc+'</p>');
+            this.info = info;
+            this.title.appendTo(this.container);
+            this.img.appendTo(this.container);
+            this.desc.appendTo(this.container);
+            this.desc.hide();
+            this.title.hide();
+
+            this.container.click(function(){
+                modalBox.Show($(this));
+            });
+
+            // var container=this.container;
+            // container.mouseenter(function(){
+            //     container.css({
+            //         "transform":"scale(1.05,1.05)",
+            //         "z-index":1000
+            //     })
+            // });
+            // container.mouseleave(function(){
+            //     container.css({
+            //         "transform":"scale(1,1)",
+            //         "z-index":1
+            //     })
+            // });
+        }
+        Item.prototype.SetTitle=function(title){
+            this.title.html(title);
+        }
+        Item.prototype.SetDesc=function(desc){
+            this.desc.html(desc);
+        }
+        Item.prototype.SetImage=function(src){
+            this.img.attr('src',src);
+        }
+        Item.prototype.appendTo=function(parent){
+            this.container.appendTo(parent);
+        }
+        Item.prototype.css=function(css){
+            this.container.css(css);
+        }
+
+        window.onload = function(){
+            var modalBox = new ItemDetail();
+            var container=$('#masonry');
+            var width = parseInt($('#masonry').css("width"));
+            for(var i=0;i<10;i++){
+                var item = new Item("Title"+i,'/photos/resource/image/'+(i+1)+'.jpg',"xdsafasdfxxfasdf1223134542155",modalBox);
+                item.appendTo(container);
+                item.css({
+                    width:(width/3),
+                    //"max-width":"100%"
+                })
+            }
+            // itemSelector     class选择器,默认'.item'，这个表示每个块的选择器 
+            // columnWidth     一列的宽度 
+            // isAnimated     使用jquery的布局变化,默认true 
+            // animationOptions     animate属性渐变效果(Object { queue: false, duration: 500 }) 
+            // gutterWidth     列的间隙 Integer 
+            // isFitWidth     自适应浏览器宽度Boolean 
+            // isResizableL     是否可调整大小 Boolean 
+            // isRTL     使用从右到左的布局 Boolean
+            container.imagesLoaded(function(){
+                container.masonry({
+                    itemSelector:'.photo.item',
+                    isAnimated:true,
+                    isFitWidth:true
+                });
+            })
+            
+        }
+        function init(){
+
+        }
+    </script>
+    
+</head>
+<body>
+    <div id="masonry">
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+                </div>
+                <div class="modal-body">在这里添加一些文本</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</body>
+</html>
