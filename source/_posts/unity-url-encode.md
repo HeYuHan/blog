@@ -5,6 +5,8 @@ categories: "Unity"
 tags:
     - URL 编码解码
 ---
+#修正
+unity 4.7以上没有该问题,以下版本改了也没用
 #问题描述
 unity www在下载含有中文路径的文件时会下载失败，此时对路径进行url编码即可
 ```c#
